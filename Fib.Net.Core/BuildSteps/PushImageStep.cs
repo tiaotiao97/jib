@@ -73,6 +73,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<BuildResult> CallAsync()
         {
             IReadOnlyList<BlobDescriptor> baseImageDescriptors = await pushBaseImageLayersStep.GetFuture().ConfigureAwait(false);
@@ -80,8 +82,11 @@ namespace Fib.Net.Core.BuildSteps
             BlobDescriptor containerConfigurationBlobDescriptor = await pushContainerConfigurationStep.GetFuture().ConfigureAwait(false);
             ImmutableHashSet<string> targetImageTags = buildConfiguration.GetAllTargetImageTags();
 
-            using (ProgressEventDispatcher progressEventDispatcher =
-                progressEventDispatcherFactory.Create("pushing image manifest", targetImageTags.Count))
+         
+            using (var progressEventDispatcher =
+                progressEventDispatcherFactory.Create("pushing image manifest", this.Index))
+            using (var factory =
+                progressEventDispatcher.NewChildProducer()("[child progress]pushing image manifest", targetImageTags.Count))
             using (TimerEventDispatcher ignored =
                 new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), DESCRIPTION))
             {
@@ -102,11 +107,13 @@ namespace Fib.Net.Core.BuildSteps
 
                 // Pushes to all target image tags.
                 IList<Task<DescriptorDigest>> pushAllTagsFutures = new List<Task<DescriptorDigest>>();
+                var idx = 0;
+                ProgressEventDispatcher.Factory progressEventDispatcherFactory =
+                    factory.NewChildProducer();
                 foreach (string tag in targetImageTags)
                 {
-                    ProgressEventDispatcher.Factory progressEventDispatcherFactory =
-                        progressEventDispatcher.NewChildProducer();
-                    using (progressEventDispatcherFactory.Create("tagging with " + tag, 1))
+                    idx++;
+                    using (progressEventDispatcherFactory.Create("tagging with " + tag, idx))
                     {
                         buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Info("Tagging with " + tag + "..."));
                         pushAllTagsFutures.Add(registryClient.PushManifestAsync(manifestTemplate, tag));

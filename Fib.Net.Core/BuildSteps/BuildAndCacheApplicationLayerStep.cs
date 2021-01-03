@@ -41,14 +41,14 @@ namespace Fib.Net.Core.BuildSteps
          */
         public static IAsyncStep<IReadOnlyList<ICachedLayer>> MakeList(
             IBuildConfiguration buildConfiguration,
-            ProgressEventDispatcher.Factory progressEventDispatcherFactory)
+            ProgressEventDispatcher.Factory progressEventDispatcherFactory,int index)
         {
             buildConfiguration = buildConfiguration ?? throw new ArgumentNullException(nameof(buildConfiguration));
             int layerCount = buildConfiguration.GetLayerConfigurations().Length;
-
-            using (ProgressEventDispatcher progressEventDispatcher =
-                    progressEventDispatcherFactory.Create(
-                        "setting up to build application layers", layerCount))
+            var dd = 0;
+            using (var progressEventDispatcher = progressEventDispatcherFactory.Create(
+                "setting up to build application layers", index))
+            using (var factory = progressEventDispatcher.NewChildProducer()("[child progress]setting up to build application layers", layerCount))
             using (TimerEventDispatcher ignored =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), Description))
 
@@ -56,6 +56,7 @@ namespace Fib.Net.Core.BuildSteps
                 List<Task<ICachedLayer>> buildAndCacheApplicationLayerSteps = new List<Task<ICachedLayer>>();
                 foreach (LayerConfiguration layerConfiguration in buildConfiguration.GetLayerConfigurations())
                 {
+                    dd++;
                     // Skips the layer if empty.
                     if (layerConfiguration.LayerEntries.Length == 0)
                     {
@@ -65,9 +66,10 @@ namespace Fib.Net.Core.BuildSteps
                     buildAndCacheApplicationLayerSteps.Add(
                         new BuildAndCacheApplicationLayerStep(
                             buildConfiguration,
-                            progressEventDispatcher.NewChildProducer(),
+                            factory.NewChildProducer(),
                             layerConfiguration.Name,
-                            layerConfiguration).GetFuture());
+                            layerConfiguration)
+                        { Index = dd }.GetFuture());
                 }
                 return AsyncSteps.FromTasks(buildAndCacheApplicationLayerSteps);
             }
@@ -100,6 +102,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<ICachedLayer> CallAsync()
         {
             string description = "Building " + layerType + " layer";
@@ -107,7 +111,7 @@ namespace Fib.Net.Core.BuildSteps
             buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Progress(description + "..."));
 
             using (ProgressEventDispatcher ignored =
-                    progressEventDispatcherFactory.Create("building " + layerType + " layer", 1))
+                    progressEventDispatcherFactory.Create("building " + layerType + " layer", this.Index))
             using (TimerEventDispatcher ignored2 =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), description))
 

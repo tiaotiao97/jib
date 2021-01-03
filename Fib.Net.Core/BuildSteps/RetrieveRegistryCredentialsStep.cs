@@ -87,13 +87,15 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public Credential Call()
         {
             string description = MakeDescription(registry);
 
             buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Progress(description + "..."));
 
-            using (progressEventDispatcherFactory.Create("retrieving credentials for " + registry, 1))
+            using (progressEventDispatcherFactory.Create("retrieving credentials for " + registry, this.Index))
             using (new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), description))
             {
                 foreach (CredentialRetriever credentialRetriever in credentialRetrievers)
@@ -101,6 +103,9 @@ namespace Fib.Net.Core.BuildSteps
                     Maybe<Credential> optionalCredential = credentialRetriever.Retrieve();
                     if (optionalCredential.IsPresent())
                     {
+                        buildConfiguration
+                            .GetEventHandlers()
+                            .Dispatch(LogEvent.Info("credentials was be retrieved for registry " + registry));
                         return optionalCredential.Get();
                     }
                 }

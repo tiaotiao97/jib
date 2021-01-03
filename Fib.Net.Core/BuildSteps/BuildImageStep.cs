@@ -67,13 +67,15 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<Image> CallAsync()
         {
             BaseImageWithAuthorization baseImageWithAuthorization = await pullBaseImageStep.GetFuture().ConfigureAwait(false);
             IReadOnlyList<ICachedLayer> baseImageLayers = await pullAndCacheBaseImageLayersStep.GetFuture().ConfigureAwait(false);
             IReadOnlyList<ICachedLayer> applicationLayers = await buildAndCacheApplicationLayersStep.GetFuture().ConfigureAwait(false);
 
-            using (progressEventDispatcherFactory.Create("building image format", 1))
+            using (var ignored = progressEventDispatcherFactory.Create("building image format", this.Index))
             using (new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), DESCRIPTION))
             {
                 // Constructs the image.

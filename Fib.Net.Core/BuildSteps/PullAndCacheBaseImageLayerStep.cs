@@ -61,10 +61,12 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<ICachedLayer> CallAsync()
         {
             using (ProgressEventDispatcher progressEventDispatcher =
-                    progressEventDispatcherFactory.Create("checking base image layer " + layerDigest, 1))
+                    progressEventDispatcherFactory.Create("checking base image layer " + layerDigest, this.Index))
             using (TimerEventDispatcher ignored =
                     new TimerEventDispatcher(
                         buildConfiguration.GetEventHandlers(), string.Format(CultureInfo.CurrentCulture, Description, layerDigest)))

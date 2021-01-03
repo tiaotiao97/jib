@@ -58,20 +58,27 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<IReadOnlyList<BlobDescriptor>> CallAsync()
         {
             IReadOnlyList<ICachedLayer> cachedLayers = await cachedLayerStep.GetFuture().ConfigureAwait(false);
+            var idx = 0;
+            using (var progressEventDispatcher =
+                progressEventDispatcherFactory.Create("setting up to push layers", this.Index))
             using (TimerEventDispatcher ignored =
                 new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), DESCRIPTION))
             {
-                using (ProgressEventDispatcher progressEventDispatcher =
-                    progressEventDispatcherFactory.Create("setting up to push layers", cachedLayers.Count))
+            
+                using (var factory =
+                    progressEventDispatcher.NewChildProducer()("[child progress]setting up to push layers", cachedLayers.Count))
                 {
                     // Constructs a PushBlobStep for each layer.
                     var pushBlobSteps = new List<Task<BlobDescriptor>>();
                     foreach (ICachedLayer cachedLayer in cachedLayers)
                     {
-                        pushBlobSteps.Add(PushBlobAsync(cachedLayer, progressEventDispatcher.NewChildProducer()));
+                        idx++;
+                        pushBlobSteps.Add(PushBlobAsync(cachedLayer, factory.NewChildProducer(), idx));
                     }
 
                     return await Task.WhenAll(pushBlobSteps).ConfigureAwait(false);
@@ -81,14 +88,14 @@ namespace Fib.Net.Core.BuildSteps
 
         private async Task<BlobDescriptor> PushBlobAsync(
             ICachedLayer cachedLayer,
-            ProgressEventDispatcher.Factory progressEventDispatcherFactory)
+            ProgressEventDispatcher.Factory progressEventDispatcherFactory,int index)
         {
             return await new PushBlobStep(
                 buildConfiguration,
                 progressEventDispatcherFactory,
                 authenticatePushStep,
                 new BlobDescriptor(cachedLayer.GetSize(), cachedLayer.GetDigest()),
-                cachedLayer.GetBlob()).GetFuture().ConfigureAwait(false);
+                cachedLayer.GetBlob()){Index = index}.GetFuture().ConfigureAwait(false);
         }
     }
 }

@@ -63,16 +63,16 @@ namespace Fib.Net.Core.Api
 
             StepsRunner StepsRunnerFactory(BuildConfiguration buildConfiguration) =>
                     StepsRunner.Begin(buildConfiguration)
-                        .RetrieveTargetRegistryCredentials()
-                        .AuthenticatePush()
-                        .PullBaseImage()
-                        .PullAndCacheBaseImageLayers()
-                        .PushBaseImageLayers()
-                        .BuildAndCacheApplicationLayers()
-                        .BuildImage()
-                        .PushContainerConfiguration()
-                        .PushApplicationLayers()
-                        .PushImage();
+                        .RetrieveTargetRegistryCredentials(1)
+                        .AuthenticatePush(2)
+                        .PullBaseImage(3)
+                        .PullAndCacheBaseImageLayers(4)
+                        .PushBaseImageLayers(5)
+                        .BuildAndCacheApplicationLayers(6)
+                        .BuildImage(7)
+                        .PushContainerConfiguration(8)
+                        .PushApplicationLayers(9)
+                        .PushImage(10);
         }
 
         /**
@@ -96,11 +96,11 @@ namespace Fib.Net.Core.Api
 
             StepsRunner StepsRunnerFactory(BuildConfiguration buildConfiguration) =>
                     StepsRunner.Begin(buildConfiguration)
-                        .PullBaseImage()
-                        .PullAndCacheBaseImageLayers()
-                        .BuildAndCacheApplicationLayers()
-                        .BuildImage()
-                        .LoadDocker(dockerClientBuilder.Build());
+                        .PullBaseImage(1)
+                        .PullAndCacheBaseImageLayers(2)
+                        .BuildAndCacheApplicationLayers(3)
+                        .BuildImage(4)
+                        .LoadDocker(dockerClientBuilder.Build(),5);
         }
 
         /**
@@ -120,11 +120,11 @@ namespace Fib.Net.Core.Api
 
             StepsRunner StepsRunnerFactory(BuildConfiguration buildConfiguration) =>
                     StepsRunner.Begin(buildConfiguration)
-                        .PullBaseImage()
-                        .PullAndCacheBaseImageLayers()
-                        .BuildAndCacheApplicationLayers()
-                        .BuildImage()
-                        .WriteTarFile(tarImage.GetOutputFile());
+                        .PullBaseImage(1)
+                        .PullAndCacheBaseImageLayers(2)
+                        .BuildAndCacheApplicationLayers(3)
+                        .BuildImage(4)
+                        .WriteTarFile(tarImage.GetOutputFile(),5);
         }
 
         private readonly string description;

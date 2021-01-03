@@ -59,11 +59,13 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<BlobDescriptor> CallAsync()
         {
             Image image = await buildImageStep.GetFuture().ConfigureAwait(false);
             using (ProgressEventDispatcher progressEventDispatcher =
-                    progressEventDispatcherFactory.Create("pushing container configuration", 1))
+                    progressEventDispatcherFactory.Create("pushing container configuration", this.Index))
             using (TimerEventDispatcher ignored =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), DESCRIPTION))
             {

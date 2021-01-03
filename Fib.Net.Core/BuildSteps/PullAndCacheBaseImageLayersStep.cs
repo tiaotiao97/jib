@@ -57,14 +57,17 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<IReadOnlyList<ICachedLayer>> CallAsync()
         {
             BaseImageWithAuthorization pullBaseImageStepResult = await pullBaseImageStep.GetFuture().ConfigureAwait(false);
             ImmutableArray<ILayer> baseImageLayers = pullBaseImageStepResult.GetBaseImage().GetLayers();
 
-            using (ProgressEventDispatcher progressEventDispatcher =
-                    progressEventDispatcherFactory.Create(
-                        "checking base image layers", baseImageLayers.Length))
+            var idd = 0;
+            using (var progressEventDispatcher = progressEventDispatcherFactory.Create(
+                    "checking base image layers", this.Index))
+            using (var factory = progressEventDispatcher.NewChildProducer()("[child progress]checking base image layers" , baseImageLayers.Length))
             using (TimerEventDispatcher ignored =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), DESCRIPTION))
 
@@ -72,12 +75,16 @@ namespace Fib.Net.Core.BuildSteps
                 List<Task<ICachedLayer>> pullAndCacheBaseImageLayerStepsBuilder = new List<Task<ICachedLayer>>();
                 foreach (ILayer layer in baseImageLayers)
                 {
+                    idd++;
                     pullAndCacheBaseImageLayerStepsBuilder.Add(
                         new PullAndCacheBaseImageLayerStep(
                             buildConfiguration,
-                            progressEventDispatcher.NewChildProducer(),
+                            factory.NewChildProducer(),
                             layer.GetBlobDescriptor().GetDigest(),
-                            pullBaseImageStepResult.GetBaseImageAuthorization()).GetFuture());
+                            pullBaseImageStepResult.GetBaseImageAuthorization())
+                        {
+                            Index = idd
+                        }.GetFuture());
                 }
 
                 return await Task.WhenAll(pullAndCacheBaseImageLayerStepsBuilder).ConfigureAwait(false);

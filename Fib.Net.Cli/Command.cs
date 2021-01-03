@@ -58,7 +58,19 @@ namespace Fib.Net.Cli
             {
                 if (e is LogEvent logEvent && logEvent.GetLevel() == LogEvent.Level.Error)
                 {
-                    error.WriteLine(e.ToString());
+                    //error.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】"+ logEvent.GetMessage());
+                }
+                else if(e is LogEvent logEvent2)
+                {
+                    //output.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】" + logEvent2.GetMessage());
+                }
+                else if (e is ProgressEvent progress)
+                {
+                    Console.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】" + progress.ToString());
+                }
+                else if (e is TimerEvent timerEvent)
+                {
+                    //output.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】" + timerEvent.ToString());
                 }
                 else
                 {

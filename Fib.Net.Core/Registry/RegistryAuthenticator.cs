@@ -17,6 +17,8 @@
 
 using Fib.Net.Core.Api;
 using Fib.Net.Core.Blob;
+using Fib.Net.Core.Configuration;
+using Fib.Net.Core.Events;
 using Fib.Net.Core.Http;
 using Fib.Net.Core.Json;
 using Newtonsoft.Json;
@@ -166,9 +168,9 @@ namespace Fib.Net.Core.Registry
          * @return an {@code Authorization} authenticating the pull
          * @throws RegistryAuthenticationFailedException if authentication fails
          */
-        public async Task<Authorization> AuthenticatePullAsync(Credential credential)
+        public async Task<Authorization> AuthenticatePullAsync(Credential credential,IEventHandlers eventHandlers)
         {
-            return await AuthenticateAsync(credential, "pull").ConfigureAwait(false);
+            return await AuthenticateAsync(credential, "pull", eventHandlers).ConfigureAwait(false);
         }
 
         /**
@@ -178,9 +180,9 @@ namespace Fib.Net.Core.Registry
          * @return an {@code Authorization} authenticating the push
          * @throws RegistryAuthenticationFailedException if authentication fails
          */
-        public async Task<Authorization> AuthenticatePushAsync(Credential credential)
+        public async Task<Authorization> AuthenticatePushAsync(Credential credential, IEventHandlers eventHandlers)
         {
-            return await AuthenticateAsync(credential, "pull,push").ConfigureAwait(false);
+            return await AuthenticateAsync(credential, "pull,push", eventHandlers).ConfigureAwait(false);
         }
 
         private string GetServiceScopeRequestParameters(string scope)
@@ -242,12 +244,12 @@ namespace Fib.Net.Core.Registry
          * @see <a
          *     href="https://docs.docker.com/registry/spec/auth/token/#how-to-authenticate">https://docs.docker.com/registry/spec/auth/token/#how-to-authenticate</a>
          */
-        private async Task<Authorization> AuthenticateAsync(Credential credential, string scope)
+        private async Task<Authorization> AuthenticateAsync(Credential credential, string scope, IEventHandlers eventHandlers)
         {
             try
             {
                 using (Connection connection =
-                    Connection.GetConnectionFactory()(GetAuthenticationUrl(credential, scope)))
+                    Connection.GetConnectionFactory(eventHandlers)(GetAuthenticationUrl(credential, scope)))
                 using (var request = new HttpRequestMessage())
                 {
                     foreach (var value in userAgent)
@@ -286,23 +288,27 @@ namespace Fib.Net.Core.Registry
 
                     if (responseJson.GetTokenOrAccessToken() == null)
                     {
-                        throw new RegistryAuthenticationFailedException(
+                        var err = new RegistryAuthenticationFailedException(
                             registryEndpointRequestProperties.GetRegistry(),
                             registryEndpointRequestProperties.GetImageName(),
                             "Did not get token in authentication response from "
-                                + GetAuthenticationUrl(credential, scope)
-                                + "; parameters: "
-                                + GetAuthRequestParameters(credential, scope));
+                            + GetAuthenticationUrl(credential, scope)
+                            + "; parameters: "
+                            + GetAuthRequestParameters(credential, scope));
+                        eventHandlers?.Dispatch(LogEvent.Error(err.Message));
+                        throw err;
                     }
                     return Authorization.FromBearerToken(responseJson.GetTokenOrAccessToken());
                 }
             }
             catch (Exception ex) when (ex is IOException || ex is JsonException)
             {
-                throw new RegistryAuthenticationFailedException(
+                var eee = new RegistryAuthenticationFailedException(
                     registryEndpointRequestProperties.GetRegistry(),
                     registryEndpointRequestProperties.GetImageName(),
                     ex);
+                eventHandlers?.Dispatch(LogEvent.Error(eee.Message));
+                throw eee;
             }
         }
     }

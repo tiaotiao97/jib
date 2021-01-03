@@ -66,6 +66,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<BuildResult> CallAsync()
         {
             await pullAndCacheBaseImageLayersStep.GetFuture().ConfigureAwait(false);
@@ -77,7 +79,7 @@ namespace Fib.Net.Core.BuildSteps
                 outputPath.GetFileName());
             buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Progress(description));
 
-            using (progressEventDispatcherFactory.Create(description, 1))
+            using (progressEventDispatcherFactory.Create(description, this.Index))
             {
                 Image image = await buildImageStep.GetFuture().ConfigureAwait(false);
 

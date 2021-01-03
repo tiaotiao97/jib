@@ -23,10 +23,12 @@ namespace Fib.Net.Core.BuildSteps
 {
     internal static class AsyncSteps
     {
-        internal static IAsyncStep<IReadOnlyList<T>> FromTasks<T>(IEnumerable<Task<T>> tasks)
+        internal static IAsyncStep<IReadOnlyList<T>> FromTasks<T>(IEnumerable<Task<T>> tasks,int index = 0)
         {
             async Task<IReadOnlyList<T>> WhenAllTasks() => await Task.WhenAll(tasks).ConfigureAwait(false);
-            return AsyncStep.Of(WhenAllTasks);
+            var asnctSteps = AsyncStep.Of(WhenAllTasks);
+            asnctSteps.Index = index;
+            return asnctSteps;
         }
     }
 }

@@ -20,18 +20,18 @@ namespace Fib.Net.Core.BuildSteps
 {
     public interface IStepsRunner
     {
-        StepsRunner AuthenticatePush();
-        StepsRunner BuildAndCacheApplicationLayers();
-        StepsRunner BuildImage();
-        StepsRunner LoadDocker(DockerClient dockerClient);
-        StepsRunner PullAndCacheBaseImageLayers();
-        StepsRunner PullBaseImage();
-        StepsRunner PushApplicationLayers();
-        StepsRunner PushBaseImageLayers();
-        StepsRunner PushContainerConfiguration();
-        StepsRunner PushImage();
-        StepsRunner RetrieveTargetRegistryCredentials();
+        StepsRunner AuthenticatePush(int index);
+        StepsRunner BuildAndCacheApplicationLayers(int index);
+        StepsRunner BuildImage(int index);
+        StepsRunner LoadDocker(DockerClient dockerClient, int index);
+        StepsRunner PullAndCacheBaseImageLayers(int index);
+        StepsRunner PullBaseImage(int index);
+        StepsRunner PushApplicationLayers(int index);
+        StepsRunner PushBaseImageLayers(int index);
+        StepsRunner PushContainerConfiguration(int index);
+        StepsRunner PushImage(int index);
+        StepsRunner RetrieveTargetRegistryCredentials(int index);
         Task<IBuildResult> RunAsync();
-        StepsRunner WriteTarFile(SystemPath outputPath);
+        StepsRunner WriteTarFile(SystemPath outputPath, int index);
     }
 }

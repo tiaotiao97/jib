@@ -128,6 +128,14 @@ namespace Fib.Net.Core.Events.Progress
             {
                 DispatchProgress(remainingAllocationUnits);
             }
+            //else
+            //{
+            //    var parent = allocation.GetParent();
+            //    if (parent != null && parent.Get()!=null)
+            //    {
+            //        eventHandlers.Dispatch(new ProgressEvent(parent.Get(), parent.Get().GetAllocationUnits()));
+            //    }
+            //}
             closed = true;
         }
 

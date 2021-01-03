@@ -39,5 +39,7 @@ namespace Fib.Net.Core.Async
 #pragma warning disable VSTHRD200 // Use "Async" suffix for async methods
         Task<T> GetFuture();
 #pragma warning restore VSTHRD200 // Use "Async" suffix for async methods
+
+        int Index { get; set; }
     }
 }

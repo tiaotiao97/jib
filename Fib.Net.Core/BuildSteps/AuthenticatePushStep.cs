@@ -61,6 +61,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<Authorization> CallAsync()
         {
             Credential registryCredential = await retrieveTargetRegistryCredentialsStep.GetFuture().ConfigureAwait(false);
@@ -68,7 +70,7 @@ namespace Fib.Net.Core.BuildSteps
             string registry = buildConfiguration.GetTargetImageConfiguration().GetImageRegistry();
             try
             {
-                using (progressEventDispatcherFactory.Create("authenticating push to " + registry, 1))
+                using (progressEventDispatcherFactory.Create("authenticating push to " + registry, this.Index))
                 using (new TimerEventDispatcher(
                             buildConfiguration.GetEventHandlers(), string.Format(CultureInfo.CurrentCulture, DESCRIPTION, registry)))
                 {
@@ -79,7 +81,7 @@ namespace Fib.Net.Core.BuildSteps
                             .GetRegistryAuthenticatorAsync().ConfigureAwait(false);
                     if (registryAuthenticator != null)
                     {
-                        return await registryAuthenticator.AuthenticatePushAsync(registryCredential).ConfigureAwait(false);
+                        return await registryAuthenticator.AuthenticatePushAsync(registryCredential, buildConfiguration.GetEventHandlers()).ConfigureAwait(false);
                     }
                 }
             }

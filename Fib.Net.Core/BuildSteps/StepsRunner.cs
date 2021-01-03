@@ -84,17 +84,23 @@ namespace Fib.Net.Core.BuildSteps
             this.buildConfiguration = buildConfiguration;
         }
 
-        public StepsRunner RetrieveTargetRegistryCredentials()
+        #region allSteps
+
+
+        public StepsRunner RetrieveTargetRegistryCredentials(int index)
         {
             return EnqueueStep(
                 () =>
+                {
                     steps.retrieveTargetRegistryCredentialsStep =
                         RetrieveRegistryCredentialsStep.ForTargetImage(
                             buildConfiguration,
-                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer()));
+                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer());
+                    steps.retrieveTargetRegistryCredentialsStep.Index = index;
+                });
         }
 
-        public StepsRunner AuthenticatePush()
+        public StepsRunner AuthenticatePush(int index)
         {
             return EnqueueStep(
                 () =>
@@ -102,20 +108,22 @@ namespace Fib.Net.Core.BuildSteps
                         new AuthenticatePushStep(
                             buildConfiguration,
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
-                            Preconditions.CheckNotNull(steps.retrieveTargetRegistryCredentialsStep)));
+                            Preconditions.CheckNotNull(steps.retrieveTargetRegistryCredentialsStep))
+                            { Index = index });
         }
 
-        public StepsRunner PullBaseImage()
+        public StepsRunner PullBaseImage(int index)
         {
             return EnqueueStep(
                 () =>
                     steps.pullBaseImageStep =
                         new PullBaseImageStep(
                             buildConfiguration,
-                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer()));
+                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer())
+                            { Index = index });
         }
 
-        public StepsRunner PullAndCacheBaseImageLayers()
+        public StepsRunner PullAndCacheBaseImageLayers(int index)
         {
             return EnqueueStep(
                 () =>
@@ -123,10 +131,11 @@ namespace Fib.Net.Core.BuildSteps
                         new PullAndCacheBaseImageLayersStep(
                             buildConfiguration,
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
-                            Preconditions.CheckNotNull(steps.pullBaseImageStep)));
+                            Preconditions.CheckNotNull(steps.pullBaseImageStep))
+                            { Index = index });
         }
 
-        public StepsRunner PushBaseImageLayers()
+        public StepsRunner PushBaseImageLayers(int index)
         {
             return EnqueueStep(
                 () =>
@@ -135,20 +144,23 @@ namespace Fib.Net.Core.BuildSteps
                             buildConfiguration,
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
                             Preconditions.CheckNotNull(steps.authenticatePushStep),
-                            Preconditions.CheckNotNull(steps.pullAndCacheBaseImageLayersStep)));
+                            Preconditions.CheckNotNull(steps.pullAndCacheBaseImageLayersStep))
+                            { Index = index });
         }
 
-        public StepsRunner BuildAndCacheApplicationLayers()
+        public StepsRunner BuildAndCacheApplicationLayers(int index)
         {
             return EnqueueStep(
                 () =>
+                {
                     steps.buildAndCacheApplicationLayerSteps =
                         BuildAndCacheApplicationLayerStep.MakeList(
                             buildConfiguration,
-                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer()));
+                            Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(), index);
+                });
         }
 
-        public StepsRunner BuildImage()
+        public StepsRunner BuildImage(int index)
         {
             return EnqueueStep(
                 () =>
@@ -158,10 +170,11 @@ namespace Fib.Net.Core.BuildSteps
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
                             Preconditions.CheckNotNull(steps.pullBaseImageStep),
                             Preconditions.CheckNotNull(steps.pullAndCacheBaseImageLayersStep),
-                            Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps)));
+                            Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps))
+                            { Index = index });
         }
 
-        public StepsRunner PushContainerConfiguration()
+        public StepsRunner PushContainerConfiguration(int index)
         {
             return EnqueueStep(
                 () =>
@@ -170,10 +183,11 @@ namespace Fib.Net.Core.BuildSteps
                             buildConfiguration,
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
                             Preconditions.CheckNotNull(steps.authenticatePushStep),
-                            Preconditions.CheckNotNull(steps.buildImageStep)));
+                            Preconditions.CheckNotNull(steps.buildImageStep))
+                            { Index = index });
         }
 
-        public StepsRunner PushApplicationLayers()
+        public StepsRunner PushApplicationLayers(int index)
         {
             return EnqueueStep(
                 () =>
@@ -182,10 +196,11 @@ namespace Fib.Net.Core.BuildSteps
                             buildConfiguration,
                             Preconditions.CheckNotNull(rootProgressEventDispatcher).NewChildProducer(),
                             Preconditions.CheckNotNull(steps.authenticatePushStep),
-                            Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps)));
+                            Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps))
+                            { Index = index });
         }
 
-        public StepsRunner PushImage()
+        public StepsRunner PushImage(int index)
         {
             rootProgressAllocationDescription = "building image to registry";
 
@@ -199,10 +214,11 @@ namespace Fib.Net.Core.BuildSteps
                             Preconditions.CheckNotNull(steps.pushBaseImageLayersStep),
                             Preconditions.CheckNotNull(steps.pushApplicationLayersStep),
                             Preconditions.CheckNotNull(steps.pushContainerConfigurationStep),
-                            Preconditions.CheckNotNull(steps.buildImageStep)));
+                            Preconditions.CheckNotNull(steps.buildImageStep))
+                            { Index = index });
         }
 
-        public StepsRunner LoadDocker(DockerClient dockerClient)
+        public StepsRunner LoadDocker(DockerClient dockerClient, int index)
         {
             rootProgressAllocationDescription = "building image to Docker daemon";
 
@@ -215,10 +231,11 @@ namespace Fib.Net.Core.BuildSteps
                             dockerClient,
                             Preconditions.CheckNotNull(steps.pullAndCacheBaseImageLayersStep),
                             Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps),
-                            Preconditions.CheckNotNull(steps.buildImageStep)));
+                            Preconditions.CheckNotNull(steps.buildImageStep))
+                            { Index = index });
         }
 
-        public StepsRunner WriteTarFile(SystemPath outputPath)
+        public StepsRunner WriteTarFile(SystemPath outputPath, int index)
         {
             rootProgressAllocationDescription = "building image to tar file";
 
@@ -231,8 +248,10 @@ namespace Fib.Net.Core.BuildSteps
                             outputPath,
                             Preconditions.CheckNotNull(steps.pullAndCacheBaseImageLayersStep),
                             Preconditions.CheckNotNull(steps.buildAndCacheApplicationLayerSteps),
-                            Preconditions.CheckNotNull(steps.buildImageStep)));
+                            Preconditions.CheckNotNull(steps.buildImageStep))
+                            { Index = index });
         }
+#endregion
 
         public async Task<IBuildResult> RunAsync()
         {

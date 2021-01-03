@@ -128,7 +128,7 @@ namespace Fib.Net.Core.Events
 
         public override string ToString()
         {
-            return $"TimerEvent:{state:G}:\"{lapDuration}\":\"{totalDuration}\":{description}";
+            return $"TimerEvent:{state:G}:\"{totalDuration}\":{description}";
         }
     }
 }

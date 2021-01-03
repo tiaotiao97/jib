@@ -124,7 +124,7 @@ namespace Fib.Net.Core.Registry
               authorization,
               registryEndpointRequestProperties,
               allowInsecureRegistries,
-              Connection.GetConnectionFactory(),
+              Connection.GetConnectionFactory(eventHandlers),
               null /* might never be used, so create lazily to delay throwing potential GeneralSecurityException */)
         {
         }
@@ -278,6 +278,7 @@ namespace Fib.Net.Core.Registry
             }
             catch (HttpResponseException ex)
             {
+                //eventHandlers.Dispatch(LogEvent.Error($"{url} err:{ex.Message}"));
                 if (ex.GetStatusCode() == HttpStatusCode.BadRequest
                     || ex.GetStatusCode() == HttpStatusCode.NotFound
                     || ex.GetStatusCode() == HttpStatusCode.MethodNotAllowed)
@@ -325,6 +326,7 @@ namespace Fib.Net.Core.Registry
             }
             catch (IOException ex)
             {
+                //eventHandlers.Dispatch(LogEvent.Error($"{url} err:{ex.Message}"));
                 if (RegistryEndpointCaller.IsBrokenPipe(ex))
                 {
                     throw new RegistryBrokenPipeException(ex);
@@ -333,6 +335,7 @@ namespace Fib.Net.Core.Registry
             }
             catch (TimeoutException e)
             {
+                //eventHandlers.Dispatch(LogEvent.Error($"{url} err:{e.Message}"));
                 throw new RegistryNoResponseException(e);
             }
         }

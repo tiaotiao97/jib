@@ -66,6 +66,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<BuildResult> CallAsync()
         {
             await pullAndCacheBaseImageLayersStep.GetFuture().ConfigureAwait(false);
@@ -75,7 +77,7 @@ namespace Fib.Net.Core.BuildSteps
                 .GetEventHandlers()
                 .Dispatch(LogEvent.Progress(Resources.LoadDockerStepDescription));
 
-            using (progressEventDispatcherFactory.Create(Resources.LoadDockerStepDescription, 1))
+            using (progressEventDispatcherFactory.Create(Resources.LoadDockerStepDescription, this.Index))
             {
                 Image image = await buildImageStep.GetFuture().ConfigureAwait(false);
                 IImageReference targetImageReference =

@@ -15,6 +15,8 @@
 //
 // NOTICE: This file was modified by James Przybylinski to be C#.
 
+using Fib.Net.Core.Configuration;
+using Fib.Net.Core.Events;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
@@ -41,12 +43,14 @@ namespace Fib.Net.Core.Http
     [SuppressMessage("Usage", "CA2213:Disposable fields should be disposed")]
     public sealed class Connection : IDisposable, IConnection
     {
+        private readonly IEventHandlers _eventHandlers;
+
         /**
          * Returns a factory for {@link Connection}.
          *
          * @return {@link Connection} factory, a function that generates a {@link Connection} to a Uri
          */
-        public static Func<Uri, Connection> GetConnectionFactory()
+        public static Func<Uri, Connection> GetConnectionFactory(IEventHandlers eventHandlers = null)
         {
             /*
              * Do not use {@link NetHttpTransport}. It does not process response errors properly. A new
@@ -56,7 +60,7 @@ namespace Fib.Net.Core.Http
              * @see <a
              *     href="https://github.com/google/google-http-java-client/issues/39">https://github.com/google/google-http-java-client/issues/39</a>
              */
-            return url => new Connection(url);
+            return url => new Connection(url, eventHandlers);
         }
 
         /**
@@ -88,14 +92,16 @@ namespace Fib.Net.Core.Http
          *
          * @param url the url to send the request to
          */
-        public Connection(Uri url) : this(url, false) { }
+        public Connection(Uri url, IEventHandlers eventHandlers = null) : this(url, false, eventHandlers) { }
 
-        public Connection(Uri url, bool insecure)
+        public Connection(Uri url, bool insecure, IEventHandlers eventHandlers = null)
         {
+            _eventHandlers = eventHandlers;
             var proxy = FibSystemProperties.GetHttpProxy();
             WebProxy proxy1 = null;
             if (!string.IsNullOrEmpty(proxy))
             {
+                _eventHandlers?.Dispatch(LogEvent.Info($"use proxy:{proxy}"));
                 if (proxy.Contains("@_@"))
                 {
                     //127.0.0.1:8080@_@username&pass
@@ -203,8 +209,9 @@ namespace Fib.Net.Core.Http
             {
                 return await client.SendAsync(request).ConfigureAwait(false);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _eventHandlers?.Dispatch(LogEvent.Info("Exception retrieving " + request.RequestUri + "->ex:"+e.Message));
                 Debug.WriteLine("Exception retrieving " + request.RequestUri);
                 throw;
             }

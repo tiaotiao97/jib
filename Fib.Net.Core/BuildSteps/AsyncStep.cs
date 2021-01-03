@@ -41,6 +41,8 @@ namespace Fib.Net.Core.BuildSteps
             {
                 return future;
             }
+
+            public int Index { get; set; }
         }
     }
 }

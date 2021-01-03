@@ -18,6 +18,7 @@
 using Fib.Net.Core.Api;
 using Fib.Net.Core.Blob;
 using Fib.Net.Core.Configuration;
+using Fib.Net.Core.Events;
 using Fib.Net.Core.Events.Time;
 using Fib.Net.Core.Http;
 using Fib.Net.Core.Images.Json;
@@ -310,6 +311,7 @@ namespace Fib.Net.Core.Registry
                     }
                     catch (RegistryException ex)
                     {
+                        eventHandlers?.Dispatch(LogEvent.Error(ex.Message));
                         throw new IOException("", ex);
                     }
                 }, -1);

@@ -62,6 +62,8 @@ namespace Fib.Net.Core.BuildSteps
             return listenableFuture;
         }
 
+        public int Index { get; set; }
+
         public async Task<BlobDescriptor> CallAsync()
         {
             Authorization authorization = await authenticatePushStep.GetFuture().ConfigureAwait(false);
