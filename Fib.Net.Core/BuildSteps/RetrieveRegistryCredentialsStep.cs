@@ -38,14 +38,14 @@ namespace Fib.Net.Core.BuildSteps
         /** Retrieves credentials for the base image. */
         public static RetrieveRegistryCredentialsStep ForBaseImage(
             BuildConfiguration buildConfiguration,
-            ProgressEventDispatcher.Factory progressEventDispatcherFactory)
+            ProgressEventDispatcher.Factory progressEventDispatcherFactory,int index)
         {
             buildConfiguration = buildConfiguration ?? throw new ArgumentNullException(nameof(buildConfiguration));
             return new RetrieveRegistryCredentialsStep(
                 buildConfiguration,
                 progressEventDispatcherFactory,
                 buildConfiguration.GetBaseImageConfiguration().GetImageRegistry(),
-                buildConfiguration.GetBaseImageConfiguration().GetCredentialRetrievers());
+                buildConfiguration.GetBaseImageConfiguration().GetCredentialRetrievers()){Index = index};
         }
 
         /** Retrieves credentials for the target image. */

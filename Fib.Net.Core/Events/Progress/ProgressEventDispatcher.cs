@@ -124,19 +124,26 @@ namespace Fib.Net.Core.Events.Progress
 
         public void Dispose()
         {
-            if (remainingAllocationUnits > 0)
-            {
-                DispatchProgress(remainingAllocationUnits);
-            }
-            //else
-            //{
-            //    var parent = allocation.GetParent();
-            //    if (parent != null && parent.Get()!=null)
-            //    {
-            //        eventHandlers.Dispatch(new ProgressEvent(parent.Get(), parent.Get().GetAllocationUnits()));
-            //    }
-            //}
+            
+            DispatchProgress(this.allocation.GetAllocationUnits());
             closed = true;
+            // lock (lockobj)
+            // {
+            //     if (remainingAllocationUnits > 0)
+            //     {
+            //         DispatchProgress(remainingAllocationUnits);
+            //     }
+            //
+            //     //else
+            //     //{
+            //     //    var parent = allocation.GetParent();
+            //     //    if (parent != null && parent.Get()!=null)
+            //     //    {
+            //     //        eventHandlers.Dispatch(new ProgressEvent(parent.Get(), parent.Get().GetAllocationUnits()));
+            //     //    }
+            //     //}
+            //     closed = true;
+            // }
         }
 
         /**
@@ -147,8 +154,8 @@ namespace Fib.Net.Core.Events.Progress
          */
         public void DispatchProgress(long progressUnits)
         {
-            long unitsDecremented = DecrementRemainingAllocationUnits(progressUnits);
-            eventHandlers.Dispatch(new ProgressEvent(allocation, unitsDecremented));
+            // long unitsDecremented = DecrementRemainingAllocationUnits(progressUnits);
+            eventHandlers.Dispatch(new ProgressEvent(allocation, progressUnits));
         }
 
         /**
@@ -159,13 +166,13 @@ namespace Fib.Net.Core.Events.Progress
          * @param units units to decrement
          * @return units actually decremented
          */
+        private static object lockobj = new object();
         private long DecrementRemainingAllocationUnits(long units)
         {
             if (closed)
             {
                 throw new ObjectDisposedException(nameof(ProgressEventDispatcher));
             }
-
             if (remainingAllocationUnits > units)
             {
                 remainingAllocationUnits -= units;
@@ -175,6 +182,8 @@ namespace Fib.Net.Core.Events.Progress
             long actualDecrement = remainingAllocationUnits;
             remainingAllocationUnits = 0;
             return actualDecrement;
+
+          
         }
     }
 }

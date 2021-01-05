@@ -64,7 +64,7 @@ namespace Fib.Net.Core.BuildSteps
             BaseImageWithAuthorization pullBaseImageStepResult = await pullBaseImageStep.GetFuture().ConfigureAwait(false);
             ImmutableArray<ILayer> baseImageLayers = pullBaseImageStepResult.GetBaseImage().GetLayers();
 
-            var idd = 0;
+            var checkIndex = 0;
             using (var progressEventDispatcher = progressEventDispatcherFactory.Create(
                     "checking base image layers", this.Index))
             using (var factory = progressEventDispatcher.NewChildProducer()("[child progress]checking base image layers" , baseImageLayers.Length))
@@ -75,7 +75,7 @@ namespace Fib.Net.Core.BuildSteps
                 List<Task<ICachedLayer>> pullAndCacheBaseImageLayerStepsBuilder = new List<Task<ICachedLayer>>();
                 foreach (ILayer layer in baseImageLayers)
                 {
-                    idd++;
+                    checkIndex++;
                     pullAndCacheBaseImageLayerStepsBuilder.Add(
                         new PullAndCacheBaseImageLayerStep(
                             buildConfiguration,
@@ -83,7 +83,7 @@ namespace Fib.Net.Core.BuildSteps
                             layer.GetBlobDescriptor().GetDigest(),
                             pullBaseImageStepResult.GetBaseImageAuthorization())
                         {
-                            Index = idd
+                            Index = checkIndex
                         }.GetFuture());
                 }
 

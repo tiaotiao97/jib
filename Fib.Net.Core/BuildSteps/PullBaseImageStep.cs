@@ -103,87 +103,96 @@ namespace Fib.Net.Core.BuildSteps
                 return new BaseImageWithAuthorization(PullBaseImageOffline(), null);
             }
 
-            using (ProgressEventDispatcher progressEventDispatcher = progressEventDispatcherFactory.Create(description, this.Index))
-            using (new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), description))
-
+            var progressEventDispatcher = progressEventDispatcherFactory.Create(description, this.Index);
+            try
             {
-                // First, try with no credentials.
-                try
+//using (ProgressEventDispatcher progressEventDispatcher = progressEventDispatcherFactory.Create(description, this.Index))
+                using (new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), description))
+
                 {
-                    return new BaseImageWithAuthorization(
-                        await PullBaseImageAsync(null, progressEventDispatcher).ConfigureAwait(false), null);
-                }
-                catch (Exception e)
-                {
-                    if (e is RegistryUnauthorizedException)
+                    // First, try with no credentials.
+                    try
                     {
-                        eventHandlers.Dispatch(
-                       LogEvent.Lifecycle(
-                           "The base image requires auth. Trying again for "
-                           + buildConfiguration.GetBaseImageConfiguration().GetImage()
-                           + "..."));
-
-                        // If failed, then, retrieve base registry credentials and try with retrieved credentials.
-                        // TODO: Refactor the logic in RetrieveRegistryCredentialsStep out to
-                        // registry.credentials.RegistryCredentialsRetriever to avoid this direct executor hack.
-                        RetrieveRegistryCredentialsStep retrieveBaseRegistryCredentialsStep =
-                            RetrieveRegistryCredentialsStep.ForBaseImage(
-                                buildConfiguration,
-                                progressEventDispatcher.NewChildProducer());
-
-                        Credential registryCredential =
-                            await retrieveBaseRegistryCredentialsStep.GetFuture().ConfigureAwait(false);
-                        Authorization registryAuthorization =
-                            registryCredential?.IsOAuth2RefreshToken() != false
-                                ? null
-                                : Authorization.FromBasicCredentials(
-                                    registryCredential.GetUsername(), registryCredential.GetPassword());
-
-                        try
+                        return new BaseImageWithAuthorization(
+                            await PullBaseImageAsync(null, progressEventDispatcher).ConfigureAwait(false), null);
+                    }
+                    catch (Exception e)
+                    {
+                        if (e is RegistryUnauthorizedException)
                         {
-                            return new BaseImageWithAuthorization(
-                                await PullBaseImageAsync(registryAuthorization, progressEventDispatcher)
-                                    .ConfigureAwait(false), registryAuthorization);
-                        }
-                        catch (RegistryUnauthorizedException)
-                        {
-                            // The registry requires us to authenticate using the Docker Token Authentication.
-                            // See https://docs.docker.com/registry/spec/auth/token
+                            eventHandlers.Dispatch(
+                                LogEvent.Lifecycle(
+                                    "The base image requires auth. Trying again for "
+                                    + buildConfiguration.GetBaseImageConfiguration().GetImage()
+                                    + "..."));
+
+                            // If failed, then, retrieve base registry credentials and try with retrieved credentials.
+                            // TODO: Refactor the logic in RetrieveRegistryCredentialsStep out to
+                            // registry.credentials.RegistryCredentialsRetriever to avoid this direct executor hack.
+                            RetrieveRegistryCredentialsStep retrieveBaseRegistryCredentialsStep =
+                                RetrieveRegistryCredentialsStep.ForBaseImage(
+                                    buildConfiguration,
+                                    progressEventDispatcher.NewChildProducer(), this.Index);
+
+                            Credential registryCredential =
+                                await retrieveBaseRegistryCredentialsStep.GetFuture().ConfigureAwait(false);
+                            Authorization registryAuthorization =
+                                registryCredential?.IsOAuth2RefreshToken() != false
+                                    ? null
+                                    : Authorization.FromBasicCredentials(
+                                        registryCredential.GetUsername(), registryCredential.GetPassword());
+
                             try
                             {
-                                RegistryAuthenticator registryAuthenticator =
-                                    await buildConfiguration
-                                        .NewBaseImageRegistryClientFactory()
-                                        .NewRegistryClient()
-                                        .GetRegistryAuthenticatorAsync().ConfigureAwait(false);
-                                if (registryAuthenticator != null)
-                                {
-                                    Authorization pullAuthorization =
-                                        await registryAuthenticator.AuthenticatePullAsync(registryCredential, eventHandlers)
-                                            .ConfigureAwait(false);
-
-                                    return new BaseImageWithAuthorization(
-                                        await PullBaseImageAsync(pullAuthorization, progressEventDispatcher)
-                                            .ConfigureAwait(false), pullAuthorization);
-                                }
+                                return new BaseImageWithAuthorization(
+                                    await PullBaseImageAsync(registryAuthorization, progressEventDispatcher)
+                                        .ConfigureAwait(false), registryAuthorization);
                             }
-                            catch (InsecureRegistryException)
+                            catch (RegistryUnauthorizedException e11)
                             {
-                                // Cannot skip certificate validation or use HTTP; fall through.
-                            }
+                                // The registry requires us to authenticate using the Docker Token Authentication.
+                                // See https://docs.docker.com/registry/spec/auth/token
+                                try
+                                {
+                                    RegistryAuthenticator registryAuthenticator =
+                                        await buildConfiguration
+                                            .NewBaseImageRegistryClientFactory()
+                                            .NewRegistryClient()
+                                            .GetRegistryAuthenticatorAsync().ConfigureAwait(false);
+                                    if (registryAuthenticator != null)
+                                    {
+                                        Authorization pullAuthorization =
+                                            await registryAuthenticator.AuthenticatePullAsync(registryCredential, eventHandlers)
+                                                .ConfigureAwait(false);
 
-                            eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage));
+                                        return new BaseImageWithAuthorization(
+                                            await PullBaseImageAsync(pullAuthorization, progressEventDispatcher)
+                                                .ConfigureAwait(false), pullAuthorization);
+                                    }
+                                }
+                                catch (InsecureRegistryException)
+                                {
+                                    // Cannot skip certificate validation or use HTTP; fall through.
+                                }
+
+                                eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage + ",err:" + e11.Message));
+                                throw;
+                            }
+                        }
+                        else
+                        {
+                            eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage + ",err:" + e.Message));
                             throw;
                         }
                     }
-                    else
-                    {
-                        eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage));
-                        throw;
-                    }
                 }
-
             }
+            finally
+            {
+                progressEventDispatcher.Dispose();
+            }
+
+         
         }
 
         /**
@@ -233,7 +242,7 @@ namespace Fib.Net.Core.BuildSteps
                     {
                         throw new UnknownManifestFormatException(
                             "Invalid container configuration in Docker V2.2/OCI manifest: \n"
-                                + JsonTemplateMapper.ToUtf8String(buildableManifestTemplate));
+                            + JsonTemplateMapper.ToUtf8String(buildableManifestTemplate));
                     }
 
                     DescriptorDigest containerConfigurationDigest =

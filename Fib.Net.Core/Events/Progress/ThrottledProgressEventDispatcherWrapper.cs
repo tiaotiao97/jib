@@ -51,7 +51,7 @@ namespace Fib.Net.Core.Events.Progress
         public void Dispose()
         {
             throttledDispatcher?.Dispose();
-            progressEventDispatcher?.Dispose();
+            // progressEventDispatcher?.Dispose();
         }
 
         public void SetProgressTarget(long allocationUnits)

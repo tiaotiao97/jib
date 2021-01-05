@@ -48,7 +48,6 @@ namespace Fib.Net.Core.BuildSteps
             var dd = 0;
             using (var progressEventDispatcher = progressEventDispatcherFactory.Create(
                 "setting up to build application layers", index))
-            using (var factory = progressEventDispatcher.NewChildProducer()("[child progress]setting up to build application layers", layerCount))
             using (TimerEventDispatcher ignored =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), Description))
 
@@ -66,10 +65,10 @@ namespace Fib.Net.Core.BuildSteps
                     buildAndCacheApplicationLayerSteps.Add(
                         new BuildAndCacheApplicationLayerStep(
                             buildConfiguration,
-                            factory.NewChildProducer(),
+                            progressEventDispatcher.NewChildProducer(),
                             layerConfiguration.Name,
                             layerConfiguration)
-                        { Index = dd }.GetFuture());
+                        { Index = index }.GetFuture());
                 }
                 return AsyncSteps.FromTasks(buildAndCacheApplicationLayerSteps);
             }
@@ -108,13 +107,11 @@ namespace Fib.Net.Core.BuildSteps
         {
             string description = "Building " + layerType + " layer";
 
-            buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Progress(description + "..."));
+            buildConfiguration.GetEventHandlers().Dispatch(LogEvent.Info(description + "..."));
 
-            using (ProgressEventDispatcher ignored =
-                    progressEventDispatcherFactory.Create("building " + layerType + " layer", this.Index))
+         
             using (TimerEventDispatcher ignored2 =
                     new TimerEventDispatcher(buildConfiguration.GetEventHandlers(), description))
-
             {
                 LayersCache cache = buildConfiguration.GetApplicationLayersCache();
 
@@ -132,7 +129,7 @@ namespace Fib.Net.Core.BuildSteps
 
                 buildConfiguration
                     .GetEventHandlers()
-                    .Dispatch(LogEvent.Debug(description + " built " + cachedLayer.GetDigest()));
+                    .Dispatch(LogEvent.Info(description + " built " + cachedLayer.GetDigest()));
 
                 return new CachedLayerWithType(cachedLayer, GetLayerType());
             }

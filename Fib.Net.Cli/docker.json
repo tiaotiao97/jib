@@ -18,207 +18,184 @@
       "Name": "Binary",
       "LayerEntries": [
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Debug\\netcoreapp2.2\\RazorTestProject.dll",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.dll",
           "ExtractionPath": "/app/RazorTestProject.dll"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\bin\\Debug\\netcoreapp2.2\\RazorTestProject.deps.json",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.deps.json",
           "ExtractionPath": "/app/RazorTestProject.deps.json"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\bin\\Debug\\netcoreapp2.2\\RazorTestProject.runtimeconfig.json",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.runtimeconfig.json",
           "ExtractionPath": "/app/RazorTestProject.runtimeconfig.json"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Debug\\netcoreapp2.2\\RazorTestProject.Views.dll",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.Views.dll",
           "ExtractionPath": "/app/RazorTestProject.Views.dll"
-        }
-      ]
-    },
-    {
-      "Name": "Debug",
-      "LayerEntries": [
+        },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Debug\\netcoreapp2.2\\RazorTestProject.pdb",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.pdb",
           "ExtractionPath": "/app/RazorTestProject.pdb"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Debug\\netcoreapp2.2\\RazorTestProject.Views.pdb",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.Views.pdb",
           "ExtractionPath": "/app/RazorTestProject.Views.pdb"
-        }
-      ]
-    },
-    {
-      "Name": "References",
-      "LayerEntries": [
+        },
         {
-          "SourceFile": "E:\\Nuget\\packages\\microsoft.build.framework\\15.9.20\\lib\\netstandard2.0\\Microsoft.Build.Framework.dll",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/Microsoft.Build.Framework.dll",
           "ExtractionPath": "/app/Microsoft.Build.Framework.dll"
         },
         {
-          "SourceFile": "E:\\Nuget\\packages\\microsoft.build.utilities.core\\15.9.20\\lib\\netstandard2.0\\Microsoft.Build.Utilities.Core.dll",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/Microsoft.Build.Utilities.Core.dll",
           "ExtractionPath": "/app/Microsoft.Build.Utilities.Core.dll"
-        }
-      ]
-    },
-    {
-      "Name": "OtherFiles",
-      "LayerEntries": [
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\css\\site.css",
-          "ExtractionPath": "/app/wwwroot\\css\\site.css"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\favicon.ico",
-          "ExtractionPath": "/app/wwwroot\\favicon.ico"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\js\\site.js",
-          "ExtractionPath": "/app/wwwroot\\js\\site.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\bootstrap\\LICENSE",
-          "ExtractionPath": "/app/wwwroot\\lib\\bootstrap\\LICENSE"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery-validation\\LICENSE.md"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery\\dist\\jquery.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery\\dist\\jquery.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery\\dist\\jquery.min.js"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery\\dist\\jquery.min.map"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\wwwroot\\lib\\jquery\\LICENSE.txt",
-          "ExtractionPath": "/app/wwwroot\\lib\\jquery\\LICENSE.txt"
-        },
-        {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\appsettings.Development.json",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/appsettings.Development.json",
           "ExtractionPath": "/app/appsettings.Development.json"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\appsettings.json",
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/appsettings.json",
           "ExtractionPath": "/app/appsettings.json"
         },
         {
-          "SourceFile": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Debug\\netcoreapp2.2\\RazorTestProject.deps.json",
-          "ExtractionPath": "/app/RazorTestProject.deps.json"
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/css/site.css",
+          "ExtractionPath": "/app/wwwroot/css/site.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/favicon.ico",
+          "ExtractionPath": "/app/wwwroot/favicon.ico"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/js/site.js",
+          "ExtractionPath": "/app/wwwroot/js/site.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/LICENSE",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/LICENSE"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/additional-methods.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/additional-methods.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/jquery.validate.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/LICENSE.md",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/LICENSE.md"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.min.map",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.min.map"
         }
       ]
     }
@@ -229,7 +206,7 @@
   "Cmd": [
     "/app/RazorTestProject.dll"
   ],
-  "ApplicationLayersCacheDirectory": "A:\\Users\\Administrator\\Downloads\\FibDotNet-master\\TestProjects\\RazorTestProject\\obj\\Fib\\Cache\\",
+  "ApplicationLayersCacheDirectory": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/cache",
   "ReproducableBuild": true,
   "AllowInsecureRegistries": false,
   "OfflineMode": false

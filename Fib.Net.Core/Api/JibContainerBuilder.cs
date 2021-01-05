@@ -543,6 +543,7 @@ namespace Fib.Net.Core.Api
                 }
                 catch (Exception ex)
                 {
+                    eventHandlers.Dispatch(LogEvent.Error(ex.Message));
                     // If an ExecutionException occurs, re-throw the cause to be more easily handled by the user
                     if (ex.InnerException is RegistryException)
                     {

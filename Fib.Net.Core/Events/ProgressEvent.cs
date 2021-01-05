@@ -66,7 +66,7 @@ namespace Fib.Net.Core.Events
 
         public override string ToString()
         {
-            return $"ProgressEvent:{progressUnits}:{allocation.GetAllocationUnits()}:{allocation.GetDescription()}";
+            return $"{(progressUnits==allocation.GetAllocationUnits()?"End":"Start")}:{allocation.GetDescription()}";
         }
     }
 }
