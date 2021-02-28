@@ -597,12 +597,12 @@ namespace Fib.Net.Core.Api
                     continue;
                 }
 
-                message.AppendLine("\t").Append(layerConfiguration.Name).Append(':');
-
-                foreach (LayerEntry layerEntry in layerConfiguration.LayerEntries)
-                {
-                    message.AppendLine("\t\t").Append(layerEntry.SourceFile);
-                }
+                message.Append(layerConfiguration.Name).Append(":file Counts:").Append(layerConfiguration.LayerEntries.Length);
+                //
+                // foreach (LayerEntry layerEntry in layerConfiguration.LayerEntries)
+                // {
+                //     message.AppendLine("\t\t").Append(layerEntry.SourceFile);
+                // }
             }
             eventHandlers.Dispatch(LogEvent.Info(message.ToString()));
         }

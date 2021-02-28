@@ -62,7 +62,10 @@ namespace Fib.Net.Cli
                 }
                 else if(e is LogEvent logEvent2)
                 {
-                    //output.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】" + logEvent2.GetMessage());
+                    if (!string.IsNullOrEmpty(logEvent2.GetMessage()))
+                    {
+                        output.WriteLine($"【{DateTime.Now:yyyy-MM-dd hh:mm:ss}】" + logEvent2.GetMessage());
+                    }
                 }
                 else if (e is ProgressEvent progress)
                 {

@@ -112,5 +112,12 @@ namespace Fib.Net.Core.Api
         {
             return imageReference;
         }
+
+        public void AddCredential(string username, string password)
+        {
+            this.Credential =Credential.From(username, password);
+        }
+
+        public Credential Credential { get; set; }
     }
 }

@@ -35,10 +35,6 @@ namespace Fib.Net.Cli
 
         public static async Task<int> Main(string[] args)
         {
-#if DEBUG
-            Environment.SetEnvironmentVariable("_JIB_HTTP_PROXY", "127.0.0.1:1087");
-            args = new string[] { "tar", "--outputfile=aa.tar", "--configfile=docker.json" };
-#endif
             var program = new Program(Console.Out, Console.Error, Parser.Default);
             return await program.ExecuteAsync(args).ConfigureAwait(false);
         }

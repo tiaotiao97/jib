@@ -389,10 +389,11 @@ namespace Fib.Net.Core.Registry
          */
         private async Task<T> CallRegistryEndpointAsync<T>(RegistryEndpointProvider<T> registryEndpointProvider)
         {
+            var url = GetApiRouteBase();
             return await new RegistryEndpointCaller<T>(
                     eventHandlers,
                     userAgent,
-                    GetApiRouteBase(),
+                    url,
                     registryEndpointProvider,
                     authorization,
                     registryEndpointRequestProperties,

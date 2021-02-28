@@ -85,7 +85,9 @@ namespace Fib.Net.Core.Api
         {
             dockerDaemonImage = dockerDaemonImage ?? throw new ArgumentNullException(nameof(dockerDaemonImage));
             ImageConfiguration imageConfiguration =
-                ImageConfiguration.CreateBuilder(dockerDaemonImage.GetImageReference()).Build();
+                ImageConfiguration.CreateBuilder(dockerDaemonImage.GetImageReference())
+                    .SetCredentialRetrievers(new List<CredentialRetriever>{() => Maybe.Of(dockerDaemonImage.Credential)})
+                    .Build();
 
             DockerClient.Builder dockerClientBuilder = DockerClient.CreateBuilder();
             dockerDaemonImage.GetDockerExecutable().IfPresent(dockerClientBuilder.SetDockerExecutable);
@@ -113,7 +115,9 @@ namespace Fib.Net.Core.Api
         {
             tarImage = tarImage ?? throw new ArgumentNullException(nameof(tarImage));
             ImageConfiguration imageConfiguration =
-                ImageConfiguration.CreateBuilder(tarImage.GetImageReference()).Build();
+                ImageConfiguration.CreateBuilder(tarImage.GetImageReference())
+                    .SetCredentialRetrievers(new List<CredentialRetriever>{() => Maybe.Of(tarImage.Credential)})
+                    .Build();
 
             return new Containerizer(
                 DescriptionForImageTarFile, imageConfiguration, StepsRunnerFactory, false);

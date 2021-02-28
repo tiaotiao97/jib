@@ -94,6 +94,8 @@ namespace Fib.Net.Core.Http
          */
         public Connection(Uri url, IEventHandlers eventHandlers = null) : this(url, false, eventHandlers) { }
 
+        private string proxyLog="";
+        
         public Connection(Uri url, bool insecure, IEventHandlers eventHandlers = null)
         {
             _eventHandlers = eventHandlers;
@@ -101,7 +103,7 @@ namespace Fib.Net.Core.Http
             WebProxy proxy1 = null;
             if (!string.IsNullOrEmpty(proxy))
             {
-                _eventHandlers?.Dispatch(LogEvent.Info($"use proxy:{proxy}"));
+                proxyLog = $"use proxy:{proxy}";
                 if (proxy.Contains("@_@"))
                 {
                     //127.0.0.1:8080@_@username&pass
@@ -215,6 +217,11 @@ namespace Fib.Net.Core.Http
                 Debug.WriteLine("Exception retrieving " + request.RequestUri);
                 throw;
             }
+        }
+
+        public string Proxy()
+        {
+            return this.proxyLog;
         }
     }
 }

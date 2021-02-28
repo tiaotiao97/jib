@@ -173,6 +173,7 @@ namespace Fib.Net.Core.Registry
 
             try
             {
+                
                 return await CallAsync(url, connectionFactory).ConfigureAwait(false);
             }
             catch (HttpRequestException e) when (IsSecurityException(e))
@@ -257,6 +258,7 @@ namespace Fib.Net.Core.Registry
             {
                 using (IConnection connection = connectionFactory(url))
                 {
+                    eventHandlers?.Dispatch(LogEvent.Info($"call http:{url} {connection.Proxy()}"));
                     var request = new HttpRequestMessage(registryEndpointProvider.GetHttpMethod(), url);
                     foreach (var value in userAgent)
                     {
@@ -272,7 +274,14 @@ namespace Fib.Net.Core.Registry
                         request.Headers.Authorization = new AuthenticationHeaderValue(authorization.GetScheme(), authorization.GetToken());
                     }
                     HttpResponseMessage response = await connection.SendAsync(request).ConfigureAwait(false);
-
+                    if (response.StatusCode == HttpStatusCode.Redirect || response.StatusCode == HttpStatusCode.RedirectKeepVerb)
+                    {
+                        var redirectUrl = response.Headers.Location.ToString();
+                        if (!string.IsNullOrEmpty(redirectUrl))
+                        {
+                            return await CallAsync(response.Headers.Location, connectionFactory);
+                        }
+                    }
                     return await registryEndpointProvider.HandleResponseAsync(response).ConfigureAwait(false);
                 }
             }

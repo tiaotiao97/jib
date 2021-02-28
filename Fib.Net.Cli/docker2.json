@@ -1,0 +1,215 @@
+{
+  "HttpProxy": "127.0.0.1:1080",
+  "BaseImage": "mcr.microsoft.com/dotnet/core/aspnet:2.2",
+  "BaseImageCredential": {
+    "UserName": "",
+    "Password": ""
+  },
+  "TargetImage": "razortestproject",
+  "TargetTags": [
+    "1.0.1"
+  ],
+  "TargetImageCredential": {
+    "UserName": "",
+    "Password": ""
+  },
+  "ImageFormat": "Docker",
+  "ImageLayersFolder": "",
+  "ImageLayers": [
+    {
+      "Name": "Binary",
+      "LayerEntries": [
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.dll",
+          "ExtractionPath": "/app/RazorTestProject.dll"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.deps.json",
+          "ExtractionPath": "/app/RazorTestProject.deps.json"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.runtimeconfig.json",
+          "ExtractionPath": "/app/RazorTestProject.runtimeconfig.json"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.Views.dll",
+          "ExtractionPath": "/app/RazorTestProject.Views.dll"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.pdb",
+          "ExtractionPath": "/app/RazorTestProject.pdb"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/RazorTestProject.Views.pdb",
+          "ExtractionPath": "/app/RazorTestProject.Views.pdb"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/Microsoft.Build.Framework.dll",
+          "ExtractionPath": "/app/Microsoft.Build.Framework.dll"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/Microsoft.Build.Utilities.Core.dll",
+          "ExtractionPath": "/app/Microsoft.Build.Utilities.Core.dll"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/appsettings.Development.json",
+          "ExtractionPath": "/app/appsettings.Development.json"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/appsettings.json",
+          "ExtractionPath": "/app/appsettings.json"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/css/site.css",
+          "ExtractionPath": "/app/wwwroot/css/site.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/favicon.ico",
+          "ExtractionPath": "/app/wwwroot/favicon.ico"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/js/site.js",
+          "ExtractionPath": "/app/wwwroot/js/site.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/bootstrap/LICENSE",
+          "ExtractionPath": "/app/wwwroot/lib/bootstrap/LICENSE"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/additional-methods.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/additional-methods.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/jquery.validate.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery-validation/LICENSE.md",
+          "ExtractionPath": "/app/wwwroot/lib/jquery-validation/LICENSE.md"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.min.js",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.min.js"
+        },
+        {
+          "SourceFile": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/publish/wwwroot/lib/jquery/dist/jquery.min.map",
+          "ExtractionPath": "/app/wwwroot/lib/jquery/dist/jquery.min.map"
+        }
+      ]
+    }
+  ],
+  "Entrypoint": [
+    "dotnet"
+  ],
+  "Cmd": [
+    "/app/RazorTestProject.dll"
+  ],
+  "ApplicationLayersCacheDirectory": "/Users/yuzd/workspace/jib/Fib.Net.Cli/bin/Debug/netcoreapp3.1/cache",
+  "ReproducableBuild": true,
+  "AllowInsecureRegistries": false,
+  "OfflineMode": false
+}

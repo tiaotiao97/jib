@@ -139,7 +139,7 @@ namespace Fib.Net.Core.FileSystem
             return new SystemPath(Path.Combine(path, relativePath.path));
         }
 
-        internal SystemPath Relativize(SystemPath path)
+        public SystemPath Relativize(SystemPath path)
         {
             Uri relativeUri = new Uri(this.path +Path.DirectorySeparatorChar).MakeRelativeUri(path.ToURI());
             return new SystemPath(relativeUri.ToString());
