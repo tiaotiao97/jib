@@ -33,11 +33,11 @@ namespace Fib.Net.Cli
                 OutputFile = Path.Combine(Directory.GetCurrentDirectory(), OutputFile);
             }
             var tarImage = TarImage.Named(configuration.GetTargetImageReference()).SaveTo(OutputFile);
-            if(configuration.TargetImageCredential!=null && !string.IsNullOrEmpty(configuration.TargetImageCredential.UserName)
-                                                         && !string.IsNullOrEmpty(configuration.TargetImageCredential.Password))
-            {
-                tarImage.AddCredential(configuration.TargetImageCredential.UserName, configuration.TargetImageCredential.Password);
-            }
+            // if(configuration.TargetImageCredential!=null && !string.IsNullOrEmpty(configuration.TargetImageCredential.UserName)
+            //                                              && !string.IsNullOrEmpty(configuration.TargetImageCredential.Password))
+            // {
+            //     tarImage.AddCredential(configuration.TargetImageCredential.UserName, configuration.TargetImageCredential.Password);
+            // }
             return Containerizer.To(tarImage);
         }
     }

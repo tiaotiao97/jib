@@ -23,11 +23,11 @@ namespace Fib.Net.Cli
         protected override IContainerizer CreateContainerizer(FibCliConfiguration configuration)
         {
             var dockerImage = DockerDaemonImage.Named(configuration.GetTargetImageReference());
-            if(configuration.TargetImageCredential!=null && !string.IsNullOrEmpty(configuration.TargetImageCredential.UserName)
-                                                         && !string.IsNullOrEmpty(configuration.TargetImageCredential.Password))
-            {
-                dockerImage.AddCredential(configuration.TargetImageCredential.UserName, configuration.TargetImageCredential.Password);
-            }
+            // if(configuration.TargetImageCredential!=null && !string.IsNullOrEmpty(configuration.TargetImageCredential.UserName)
+            //                                              && !string.IsNullOrEmpty(configuration.TargetImageCredential.Password))
+            // {
+            //     dockerImage.AddCredential(configuration.TargetImageCredential.UserName, configuration.TargetImageCredential.Password);
+            // }
             return Containerizer.To(dockerImage);
         }
     }
