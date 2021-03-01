@@ -1,8 +1,8 @@
 {
   "HttpProxy": "",
-  "BaseImage": "ccr.ccs.tencentyun.com/dotnet-core/aspnet:2.2",
+  "BaseImage": "registry.cn-hangzhou.aliyuncs.com/newbe36524/aspnet:3.1",
   "BaseImageCredential": {
-    "UserName": "100000782021",
+    "UserName": "",
     "Password": ""
   },
   "TargetImage": "razortestproject",

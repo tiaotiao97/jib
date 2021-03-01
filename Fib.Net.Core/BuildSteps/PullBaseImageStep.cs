@@ -111,6 +111,13 @@ namespace Fib.Net.Core.BuildSteps
 
                 {
                     // First, try with no credentials.
+                    var baseImageUrl = buildConfiguration.GetBaseImageConfiguration().GetImageRegistry();
+                    //如果是阿里云的话 直接用oauth方式
+                    if(baseImageUrl.Contains("aliyuncs.com") || baseImageUrl.Contains("tencentyun.com"))
+                    {
+                        return await GetOauthBaseImage(eventHandlers, progressEventDispatcher).ConfigureAwait(false);
+                    }
+                    
                     try
                     {
                         return new BaseImageWithAuthorization(
@@ -193,6 +200,50 @@ namespace Fib.Net.Core.BuildSteps
             }
 
          
+        }
+
+        private async Task<BaseImageWithAuthorization> GetOauthBaseImage(IEventHandlers eventHandlers,ProgressEventDispatcher progressEventDispatcher)
+        {
+            try
+            {
+                RetrieveRegistryCredentialsStep retrieveBaseRegistryCredentialsStep =
+                    RetrieveRegistryCredentialsStep.ForBaseImage(
+                        buildConfiguration,
+                        progressEventDispatcher.NewChildProducer(), this.Index);
+
+                Credential registryCredential =
+                    await retrieveBaseRegistryCredentialsStep.GetFuture().ConfigureAwait(false);
+                Authorization registryAuthorization =
+                    registryCredential?.IsOAuth2RefreshToken() != false
+                        ? null
+                        : Authorization.FromBasicCredentials(
+                            registryCredential.GetUsername(), registryCredential.GetPassword());
+                
+                RegistryAuthenticator registryAuthenticator =
+                    await buildConfiguration
+                        .NewBaseImageRegistryClientFactory()
+                        .NewRegistryClient()
+                        .GetRegistryAuthenticatorAsync().ConfigureAwait(false);
+                if (registryAuthenticator != null)
+                {
+                    Authorization pullAuthorization =
+                        await registryAuthenticator.AuthenticatePullAsync(registryCredential, eventHandlers)
+                            .ConfigureAwait(false);
+
+                    return new BaseImageWithAuthorization(
+                        await PullBaseImageAsync(pullAuthorization, progressEventDispatcher)
+                            .ConfigureAwait(false), pullAuthorization);
+                }
+            }
+            catch (Exception e)
+            {
+                // Cannot skip certificate validation or use HTTP; fall through.
+                eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage + ",err:" + e.Message));
+                throw;
+            }
+            
+            eventHandlers.Dispatch(LogEvent.Error(Resources.PullBaseImageStepAuthenticationErrorMessage + ",err:BaseImageCredential not config "));
+            throw new Exception("BaseImageCredential not config");
         }
 
         /**
